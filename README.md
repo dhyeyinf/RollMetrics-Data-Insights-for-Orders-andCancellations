@@ -92,4 +92,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-For any queries, contact (mailto:dhyey.inf323@gmail.com).
+For any queries, contact dhyey.inf323@gmail.com
