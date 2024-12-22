@@ -1,0 +1,38 @@
+--Maximun nuber of rolls deivered on single order?
+
+SELECT * from customer_orders WHERE order_id in(
+SELECT order_id from
+(SELECT *,case WHEN cancellation in ('Cancellation','Customer Cancellation') then 'c' ELSE 'nc' end as order_cancel_details FROM driver_order)a WHERE order_cancel_details='nc')
+
+SELECT order_id , count(roll_id) FROM
+(SELECT * from customer_orders WHERE order_id in(
+SELECT order_id from
+(SELECT *,case WHEN cancellation in ('Cancellation','Customer Cancellation') then 'c' ELSE 'nc' end as order_cancel_details FROM driver_order)a WHERE order_cancel_details='nc'))b GROUP BY order_id;
+
+--final query
+
+SELECT * 
+FROM (
+    SELECT *, RANK() OVER (ORDER BY cnt DESC) rnk 
+    FROM (
+        SELECT order_id, COUNT(roll_id) AS cnt 
+        FROM (
+            SELECT * 
+            FROM customer_orders 
+            WHERE order_id IN (
+                SELECT order_id 
+                FROM (
+                    SELECT *, 
+                        CASE 
+                            WHEN cancellation IN ('Cancellation', 'Customer Cancellation') THEN 'c' 
+                            ELSE 'nc' 
+                        END AS order_cancel_details 
+                    FROM driver_order
+                ) a 
+                WHERE order_cancel_details = 'nc'
+            )
+        ) b 
+        GROUP BY order_id
+    ) c
+) d 
+WHERE rnk = 1;
