@@ -1,0 +1,7 @@
+--What was total no of rolls ordered for each hour of the day?
+
+SELECT 
+    *, 
+    CONCAT(CAST(HOUR(order_date) AS CHAR), '-', 
+           CAST(DATE_ADD(DATE(order_date), INTERVAL 1 DAY) AS CHAR)) AS hrs_bucket
+FROM customer_orders;
