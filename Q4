@@ -1,0 +1,20 @@
+--How many each type of roll was delivered?
+
+-- first cleaning data as 'null' values where not recognised
+
+SELECT *,case WHEN cancellation in ('Cancellation','Customer Cancellation') then 'c' ELSE 'nc' end as order_cancel_details FROM driver_order;
+
+SELECT * FROM
+(SELECT *,case WHEN cancellation in ('Cancellation','Customer Cancellation') then 'c' ELSE 'nc' end as order_cancel_details FROM driver_order)a WHERE order_cancel_details='nc';
+
+
+SELECT * FROM customer_orders where order_id in(
+SELECT order_id FROM
+(SELECT *,case WHEN cancellation in ('Cancellation','Customer Cancellation') then 'c' ELSE 'nc' end as order_cancel_details FROM driver_order)a WHERE order_cancel_details='nc');
+
+--final query
+SELECT roll_id, count(roll_id)
+FROM customer_orders where order_id in(
+SELECT order_id FROM
+(SELECT *,case WHEN cancellation in ('Cancellation','Customer Cancellation') then 'c' ELSE 'nc' end as order_cancel_details FROM driver_order)a WHERE order_cancel_details='nc') GROUP BY roll_id;
+
