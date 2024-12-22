@@ -1,0 +1,23 @@
+-- Roll Metrics
+-- driver and customer experience
+-- ingredients optimazation
+-- Pricing and ratings
+
+--Avearge time in minutes it took for each driver to arrive at faasos HQ to pickup order?
+
+SELECT 
+    a.order_id, 
+    a.customer_id, 
+    a.roll_id, 
+    a.not_include_items, 
+    a.extra_items_included, 
+    a.order_date, 
+    b.driver_id, 
+    b.pickup_time, 
+    b.distance, 
+    b.duration, 
+    b.cancellation, 
+    TIMESTAMPDIFF(MINUTE, a.order_date , b.pickup_time) AS diff_minutes 
+FROM customer_orders a 
+INNER JOIN driver_order b 
+ON a.order_id = b.order_id 
