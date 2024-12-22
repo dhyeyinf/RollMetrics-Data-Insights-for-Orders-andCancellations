@@ -1,0 +1,8 @@
+--What was the numbers of orders for each day of the week?
+
+SELECT dow, COUNT(DISTINCT `order_id`) AS distinct_orders
+FROM (
+    SELECT *, DAYNAME(order_date) AS dow 
+    FROM customer_orders
+) AS a
+GROUP BY dow;
