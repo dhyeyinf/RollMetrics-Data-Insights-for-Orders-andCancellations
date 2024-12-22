@@ -1,0 +1,4 @@
+--How many veg and non veg rolls where ordered by each of the customer?
+
+SELECT a.*,b.roll_name FROM (
+SELECT customer_id,roll_id, count(roll_id) FROM customer_orders GROUP BY customer_id,roll_id)a INNER JOIN rolls b on a.roll_id=b.roll_id;
