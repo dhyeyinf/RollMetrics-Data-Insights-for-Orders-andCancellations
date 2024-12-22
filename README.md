@@ -75,8 +75,7 @@ Performed transformations to:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/dhyeyinf/BreadcrumbsRollMetrics-Data-Insights-for-Orders-andCancellations
-.git
+   git clone https://github.com/dhyeyinf/RollMetrics-Data-Insights-for-Orders-andCancellations.git
    ```
 
 2. Import the SQL script into your MySQL environment.
