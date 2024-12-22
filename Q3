@@ -1,0 +1,2 @@
+--How many succesfull orders were delivered by each driver?
+SELECT driver_id, count(DISTINCT order_id) FROM driver_order WHERE cancellation not in ('Cancellation','Customer Cancellation') GROUP BY driver_id;
